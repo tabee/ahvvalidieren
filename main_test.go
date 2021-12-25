@@ -2,37 +2,40 @@ package main
 
 import "testing"
 
-func Test_validateCountry(t *testing.T) {
+func TestValidate(t *testing.T) {
 	type args struct {
-		s           string
-		countryCode string
+		ahvnr string
 	}
 	tests := []struct {
-		name string
-		args args
-		want bool
+		name    string
+		args    args
+		want    bool
+		wantErr bool
 	}{
 		// TODO: Add test cases.
+		// TODO: Add test cases.
 		{
-			name: "Ländercode 01",
-			args: args{"756.3903.6825.80", "756"},
-			want: true,
+			name:    "Ländercode 01",
+			args:    args{"756.3903.6825.80"},
+			want:    true,
+			wantErr: false,
 		},
 		{
-			name: "Ländercode 02",
-			args: args{"aaa.3903.6825.80", "756"},
-			want: false,
-		},
-		{
-			name: "Ländercode 03",
-			args: args{"666.3903.6825.80", "756"},
-			want: false,
+			name:    "Ländercode 02",
+			args:    args{"666.3903.6825.80"},
+			want:    false,
+			wantErr: true,
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := validateCountry(tt.args.s, tt.args.countryCode); got != tt.want {
-				t.Errorf("validateCountry() = %v, want %v", got, tt.want)
+			got, err := Validate(tt.args.ahvnr)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("Validate() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if got != tt.want {
+				t.Errorf("Validate() = %v, want %v", got, tt.want)
 			}
 		})
 	}

@@ -8,33 +8,36 @@ import (
 	"github.com/nicholassm/go-ean"
 )
 
-func validateChecksum(s string) (bool, error) {
-	string := strings.SplitN(s, ".", 4)
-	c, err := ean.ChecksumEan13(string[0] + string[1] + string[2] + string[3])
+func validateChecksum(s []string) (bool, error) {
+
+	c, err := ean.ChecksumEan13(s[0] + s[1] + s[2] + s[3])
 	if err != nil {
 		return false, errors.New("ean13 wrong")
 	}
 	// Prüfe Kontrollzahl
-	value, _ := strconv.Atoi(string[3][1:])
+	value, _ := strconv.Atoi(s[3][1:])
 	if value == c {
 		return true, nil
 	}
 	return false, nil
 }
-
-func validateCountry(s string, countryCode string) bool {
-	string := strings.SplitN(s, ".", 4)
-	if string[0] != countryCode {
+func validateCountry(s []string, countryCode string) bool {
+	if s[0] != countryCode {
 		return false
 	} else {
 		return true
 	}
 }
+func prepInp(ahvnr string) ([]string, error) {
+	s := strings.SplitN(ahvnr, ".", 4)
+	return s, nil
+}
 
 func Validate(ahvnr string) (bool, error) {
-	statusCountry := validateCountry(ahvnr, "756")
+	a, _ := prepInp(ahvnr)
+	statusCountry := validateCountry(a, "756")
 	if statusCountry {
-		statusChecksum, error := validateChecksum(ahvnr)
+		statusChecksum, error := validateChecksum(a)
 		if statusChecksum {
 			return true, nil
 		}
