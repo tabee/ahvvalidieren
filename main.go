@@ -1,4 +1,4 @@
-//Package math provide main functions
+//package main provide main functions to validate swiss ahv number.
 package main
 
 import (
@@ -9,7 +9,12 @@ import (
 	"github.com/nicholassm/go-ean"
 )
 
-// check checksum
+type ahvnr struct {
+	input     string
+	validated bool
+}
+
+// check ean13 checksum.
 func validateChecksum(s []string) (bool, error) {
 
 	c, err := ean.ChecksumEan13(s[0] + s[1] + s[2] + s[3])
@@ -24,6 +29,8 @@ func validateChecksum(s []string) (bool, error) {
 
 	return false, nil
 }
+
+// check country number.
 func validateCountry(s []string, countryCode string) bool {
 	if s[0] != countryCode {
 		return false
@@ -31,11 +38,14 @@ func validateCountry(s []string, countryCode string) bool {
 		return true
 	}
 }
+
+// prepar inpu for checks.
 func prepInp(ahvnr string) ([]string, error) {
 	s := strings.SplitN(ahvnr, ".", 4)
 	return s, nil
 }
 
+// run all checks.
 func Validate(ahvnr string) (bool, error) {
 	a, _ := prepInp(ahvnr)
 	statusCountry := validateCountry(a, "756")
@@ -52,10 +62,8 @@ func Validate(ahvnr string) (bool, error) {
 }
 
 func main() {
-
 	println(Validate("756.9217.0769.84")) // false
 	println(Validate("756.3903.6825.80")) // true
 	//println(Validate("746.3903.6825.80")) // false
 	//println(Validate("756.3903.6445.81")) // false
-
 }
