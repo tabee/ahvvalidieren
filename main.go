@@ -11,7 +11,7 @@ import (
 
 type ahvnr struct {
 	number    string
-	numberS   []string
+	numberS   []string // number blocks
 	validated bool
 }
 
@@ -65,10 +65,7 @@ func Validate(input string) (bool, error) {
 func main() {
 	arr := [2]string{"56.9217.0769.84", "756.3903.6825.80"}
 	for j := 0; j < len(arr); j++ {
-		v, err := Validate(arr[j])
-		if err != nil {
-			errors.New("Fehler")
-		}
+		v, _ := Validate(arr[j])
 		println(v)
 	}
 }

@@ -1,6 +1,8 @@
 package main
 
-import "testing"
+import (
+	"testing"
+)
 
 func TestValidate(t *testing.T) {
 	type args struct {
@@ -37,6 +39,20 @@ func TestValidate(t *testing.T) {
 			if got != tt.want {
 				t.Errorf("Validate() = %v, want %v", got, tt.want)
 			}
+		})
+	}
+}
+
+func Test_main(t *testing.T) {
+	tests := []struct {
+		name string
+	}{
+		// TODO: Add test cases.
+		{name: "run main"},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			main()
 		})
 	}
 }
