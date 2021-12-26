@@ -1,5 +1,5 @@
 //package main provide main functions to validate swiss ahv number.
-package main
+package ahvvalidieren
 
 import (
 	"errors"
@@ -60,12 +60,4 @@ func Validate(input string) (bool, error) {
 		}
 	}
 	return ahvnr.validated, errors.New("problem mit" + input)
-}
-
-func main() {
-	arr := [2]string{"56.9217.0769.84", "756.3903.6825.80"}
-	for j := 0; j < len(arr); j++ {
-		v, _ := Validate(arr[j])
-		println(v)
-	}
 }
