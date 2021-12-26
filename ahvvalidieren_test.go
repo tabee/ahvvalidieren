@@ -27,6 +27,16 @@ func TestValidate(t *testing.T) {
 			args:    args{"666.3903.6825.80"},
 			want:    false,
 			wantErr: true,
+		}, {
+			name:    "Ländercode 03",
+			args:    args{"aaa.3903.6825.aa"},
+			want:    false,
+			wantErr: true,
+		}, {
+			name:    "Ländercode 04",
+			args:    args{"666.3903.6444825.80"},
+			want:    false,
+			wantErr: true,
 		},
 	}
 	for _, tt := range tests {
