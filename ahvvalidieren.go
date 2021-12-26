@@ -45,7 +45,6 @@ func validateChecksum(s []string) (bool, error) {
 	if value == c {
 		return true, nil
 	}
-
 	return false, nil
 }
 
