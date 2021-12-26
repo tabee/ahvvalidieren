@@ -25,7 +25,7 @@ jobs:
       run: go test -v ./...
 
     - name: Coverprofile 
-      run: go test ./ -coverprofile ./coverprofile.out
+      run: go test ./ -coverprofile ./coverprofile.test
 
     - name: Documentation
       run: go doc -cmd -all
