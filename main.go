@@ -10,8 +10,26 @@ import (
 )
 
 type ahvnr struct {
-	input     string
+	number    string
+	numberS   []string
 	validated bool
+}
+
+func newAhvnr(input string) *ahvnr {
+	a := ahvnr{number: input}
+	a.numberS = strings.SplitN(input, ".", 4) // prepar inpu for checks.
+	//a.validated = true
+	return &a
+}
+
+// check country number for switzerland.
+func validateCountry(s []string) bool {
+	countryCode := "756" // country code 756 for switzerland
+	if s[0] != countryCode {
+		return false
+	} else {
+		return true
+	}
 }
 
 // check ean13 checksum.
@@ -30,40 +48,27 @@ func validateChecksum(s []string) (bool, error) {
 	return false, nil
 }
 
-// check country number.
-func validateCountry(s []string, countryCode string) bool {
-	if s[0] != countryCode {
-		return false
-	} else {
-		return true
-	}
-}
-
-// prepar inpu for checks.
-func prepInp(ahvnr string) ([]string, error) {
-	s := strings.SplitN(ahvnr, ".", 4)
-	return s, nil
-}
-
 // run all checks.
-func Validate(ahvnr string) (bool, error) {
-	a, _ := prepInp(ahvnr)
-	statusCountry := validateCountry(a, "756")
+func Validate(input string) (bool, error) {
+	ahvnr := newAhvnr(input)
+	statusCountry := validateCountry(ahvnr.numberS)
 	if statusCountry {
-		statusChecksum, error := validateChecksum(a)
+		statusChecksum, _ := validateChecksum(ahvnr.numberS)
 		if statusChecksum {
-			return true, nil
-		}
-		if error != nil {
-			return false, errors.New("problem with checksum" + ahvnr)
+			ahvnr.validated = true
+			return ahvnr.validated, nil
 		}
 	}
-	return false, errors.New("problem" + ahvnr)
+	return ahvnr.validated, errors.New("problem mit" + input)
 }
 
 func main() {
-	println(Validate("756.9217.0769.84")) // false
-	println(Validate("756.3903.6825.80")) // true
-	//println(Validate("746.3903.6825.80")) // false
-	//println(Validate("756.3903.6445.81")) // false
+	arr := [2]string{"56.9217.0769.84", "756.3903.6825.80"}
+	for j := 0; j < len(arr); j++ {
+		v, err := Validate(arr[j])
+		if err != nil {
+			errors.New("Fehler")
+		}
+		println(v)
+	}
 }
