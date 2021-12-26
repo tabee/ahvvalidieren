@@ -16,7 +16,7 @@ func main() {
 	}
 }
 ```
-You will see:
+you will see:
 ```bash
 false
 true
