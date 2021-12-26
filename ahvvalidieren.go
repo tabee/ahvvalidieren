@@ -36,6 +36,7 @@ func validateCountry(s []string) bool {
 func validateChecksum(s []string) (bool, error) {
 
 	c, err := ean.ChecksumEan13(s[0] + s[1] + s[2] + s[3])
+	println(c)
 	if err != nil {
 		return false, errors.New("ean13 wrong")
 	}
