@@ -9,7 +9,7 @@ package main
 import c "github.com/tabee/ahvvalidieren"
 
 func main() {
-	arr := [2]string{"56.9217.0769.84", "756.3903.6825.80"}
+	arr := [2]string{"56.9217.0769.84", "756.3903.3333.83"}
 	for j := 0; j < len(arr); j++ {
 		v, _ := c.Validate(arr[j])
 		println(v)
