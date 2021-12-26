@@ -1,3 +1,4 @@
+//Package math provide main functions
 package main
 
 import (
@@ -8,6 +9,7 @@ import (
 	"github.com/nicholassm/go-ean"
 )
 
+// check checksum
 func validateChecksum(s []string) (bool, error) {
 
 	c, err := ean.ChecksumEan13(s[0] + s[1] + s[2] + s[3])
@@ -19,6 +21,7 @@ func validateChecksum(s []string) (bool, error) {
 	if value == c {
 		return true, nil
 	}
+
 	return false, nil
 }
 func validateCountry(s []string, countryCode string) bool {
@@ -49,6 +52,7 @@ func Validate(ahvnr string) (bool, error) {
 }
 
 func main() {
+
 	println(Validate("756.9217.0769.84")) // false
 	println(Validate("756.3903.6825.80")) // true
 	//println(Validate("746.3903.6825.80")) // false
