@@ -1,4 +1,4 @@
-module github/tabee/ahvvalidieren
+module github.com/tabee/ahvvalidieren
 
 go 1.17
 
