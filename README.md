@@ -1,4 +1,4 @@
-[![Go](https://github.com/tabee/ahvvalidieren/actions/workflows/go.yml/badge.svg)](https://github.com/tabee/ahvvalidieren/actions/workflows/go.yml)
+[![Go](https://github.com/tabee/ahvvalidieren/actions/workflows/go.yml/badge.svg)](https://github.com/tabee/ahvvalidieren/actions/workflows/go.yml)[![Go Report Card](https://goreportcard.com/badge/github.com/tabee/ahvvalidieren)](https://goreportcard.com/report/github.com/tabee/ahvvalidieren)
 # swiss ahv nr validieren
 validate a swiss ahv nr given in a string, returns true or false.
 Checks the country code and ean13 checksum.
